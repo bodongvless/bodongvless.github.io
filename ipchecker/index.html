@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -88,6 +89,7 @@
             100% { transform: rotate(360deg); }
         }
     </style>
+    <meta name="referrer" content="no-referrer"> <!-- Menambahkan header CORS -->
 </head>
 <body>
 
@@ -113,7 +115,8 @@
 <script>
     async function showInfo() {
         var ip = document.getElementById('ipAddress').value.trim();
-        var apiUrl = `http://thingproxy.freeboard.io/fetch/https://bexnxx.filegear-sg.me/api?ip=${ip}`;
+        var corsAnywhereUrl = 'https://proxy.mangaraiku.eu.org/?url=';
+        var apiUrl = `${corsAnywhereUrl}https://bexnxx.filegear-sg.me/api?ip=${ip}`;
 
         if (!ip) {
             return;
