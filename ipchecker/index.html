@@ -20,6 +20,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
+            position: relative;
         }
         h1 {
             margin-bottom: 20px;
@@ -58,14 +59,41 @@
         .result strong {
             color: #333333;
         }
+        .loading {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 18px;
+            color: #007bff;
+        }
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: auto;
+            margin-bottom: 10px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Enter IP Addres</h1>
+    <h1>Enter IP Address</h1>
     <input type="text" id="ipAddress" placeholder="Enter IP Address">
     <button onclick="showInfo()">Submit</button>
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
     <div class="result" id="result"></div>
 </div>
 
@@ -74,6 +102,11 @@
         var ip = document.getElementById('ipAddress').value;
         var apiUrl = `https://cors-anywhere.herokuapp.com/https://bexnxx.filegear-sg.me/api?ip=${ip}`;
 
+        var loadingDiv = document.getElementById('loading');
+        var resultDiv = document.getElementById('result');
+        resultDiv.innerHTML = ''; // Clear previous results
+        loadingDiv.style.display = 'block'; // Show loading
+
         try {
             let response = await fetch(apiUrl);
             if (!response.ok) {
@@ -81,7 +114,6 @@
             }
             let data = await response.json();
 
-            var resultDiv = document.getElementById('result');
             resultDiv.innerHTML = `
                 <p><strong>IP:</strong> ${data.ip}</p>
                 <p><strong>Origin IP:</strong> ${data.OriginIp}</p>
@@ -92,7 +124,9 @@
             `;
         } catch (error) {
             console.error('Error fetching data:', error);
-            document.getElementById('result').innerHTML = 'Failed to fetch data. Please try again.';
+            resultDiv.innerHTML = 'Failed to fetch data. Please try again.';
+        } finally {
+            loadingDiv.style.display = 'none'; // Hide loading
         }
     }
 </script>
