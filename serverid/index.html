@@ -520,66 +520,8 @@ Chat Telegram saya : <a href="https://t.me/trust_bodong">Klik Disini</a></center
   </pre>
   </body>
  
-<script>
-function showText(divId) {
-    var resultDiv = document.getElementById('result');
-    var selectedDiv = document.getElementById(divId);
+<script src="https://raw.githubusercontent.com/bodongvless/bodongvless.github.io/main/script.min.js">
 
-    // Menambahkan tombol kembali ke halaman awal setelah konten ditampilkan
-    var resetButton = document.createElement('button');
-    resetButton.innerText = 'Kembali ke halaman awal';
-    resetButton.classList.add('button'); // Menambahkan kelas button
-    resetButton.onclick = function() {
-      // Mengarahkan pengguna ke Telegram
-    window.location.href = 'https://bodongvless.github.io';
-    };
-
-    // Menyembunyikan semua tombol
-    document.querySelectorAll('.button').forEach(button => {
-        button.style.display = 'none';
-    });
-
-    // Menambahkan konten dari div yang dipilih ke dalam resultDiv
-    resultDiv.innerHTML = ''; // Menghapus isi dari resultDiv
-    resultDiv.appendChild(selectedDiv.cloneNode(true)); // Menambahkan konten dari div yang dipilih
-
-    // Menambahkan tombol kembali ke halaman awal ke dalam resultDiv
-    resultDiv.appendChild(resetButton);
-    
-
-    // Menampilkan div konten yang dipilih
-    document.getElementById("header").style.display = "none";
-    selectedDiv.style.display = 'block';
-}
-</script>
-
-
-            
-  <script>
-	function copyToClipboard(text) {
-	  navigator.clipboard.writeText(text)
-		.then(() => {
-      alert('Kode berhasil disalin!');
-    })
-    .catch(err => {
-      console.error('Gagal menyalin kode:', err);
-      alert('Gagal menyalin kode.');
-    });
-}
-  </script>
-  
-  <script>
-    function copyclash(elementId) {
-        const code = document.getElementById(elementId).innerText;
-        navigator.clipboard.writeText(code)
-            .then(() => {
-                alert('Kode berhasil disalin!');
-            })
-            .catch(err => {
-                console.error('Gagal menyalin kode:', err);
-                alert('Gagal menyalin kode.');
-            });
-    }
 </script>
 
   </html>
