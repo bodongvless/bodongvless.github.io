@@ -118,45 +118,8 @@
     </div>
 </div>
 
-<script>
-    async function showInfo() {
-        var ip = document.getElementById('ipAddress').value.trim();
-        var corsAnywhereUrl = 'https://proxy.mangaraiku.eu.org/?url=';
-        var apiUrl = `${corsAnywhereUrl}https://bexnxx.filegear-sg.me/api?ip=${ip}`;
-
-        if (!ip) {
-            return;
-        }
-
-        var loadingDiv = document.getElementById('loading');
-        var resultDiv = document.getElementById('result');
-        loadingDiv.style.display = 'block'; // Show loading
-
-        try {
-            let response = await fetch(apiUrl);
-            if (!response.ok) {
-                throw new Error('Network response was not ok: ' + response.statusText);
-            }
-            let data = await response.json();
-
-            resultDiv.innerHTML = `
-                <p><strong>IP:</strong> ${data.ip}</p>
-                <p><strong>ISP:</strong> ${data.isp}</p>
-                <p><strong>Country:</strong> ${data.country}</p>
-                <p><strong>City:</strong> ${data.city}</p>
-                <p><strong>Proxy Status:</strong> ${data.proxyStatus}</p>
-            `;
-        } catch (error) {
-            console.error('Error fetching data:', error);
-            // Keep previous result if available
-        } finally {
-            loadingDiv.style.display = 'none'; // Hide loading
-        }
-    }
-
-    function clearValidity() {
-        document.getElementById('ipAddress').setCustomValidity('');
-    }
+<script src="script.min.js">
+    
 </script>
 
 </body>
