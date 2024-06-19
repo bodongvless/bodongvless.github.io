@@ -35,6 +35,16 @@
             border-radius: 5px;
             margin-bottom: 10px;
         }
+        .error-message {
+            display: none;
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: left;
+        }
+        .error-message.active {
+            display: block;
+        }
         button {
             padding: 10px 20px;
             font-size: 16px;
@@ -88,7 +98,7 @@
 
 <div class="container">
     <h1>Enter IP Address</h1>
-    <input type="text" id="ipAddress" placeholder="Enter IP Address">
+    <input type="text" id="ipAddress" placeholder="Enter IP Address" required oninvalid="this.setCustomValidity('Please enter an IP address.')">
     <button onclick="showInfo()">Submit</button>
     <div class="loading" id="loading">
         <div class="spinner"></div>
@@ -106,8 +116,16 @@
 
 <script>
     async function showInfo() {
-        var ip = document.getElementById('ipAddress').value;
+        var ip = document.getElementById('ipAddress').value.trim();
         var apiUrl = `https://cors-anywhere.herokuapp.com/https://bexnxx.filegear-sg.me/api?ip=${ip}`;
+
+        var errorMessage = document.getElementById('errorMessage');
+        errorMessage.classList.remove('active'); // Hide error message initially
+
+        if (!ip) {
+            errorMessage.classList.add('active'); // Show error message if input is empty
+            return;
+        }
 
         var loadingDiv = document.getElementById('loading');
         var resultDiv = document.getElementById('result');
