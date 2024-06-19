@@ -62,7 +62,7 @@
         .loading {
             display: none;
             position: absolute;
-            top: 100%;
+            top: 50%;
             left: 50%;
             transform: translateX(-50%);
             font-size: 18px;
@@ -94,7 +94,14 @@
         <div class="spinner"></div>
         <p>Loading...</p>
     </div>
-    <div class="result" id="result"></div>
+    <div class="result" id="result">
+        <p><strong>IP:</strong> None</p>
+        <p><strong>Origin IP:</strong> None</p>
+        <p><strong>ISP:</strong> None</p>
+        <p><strong>Country:</strong> None</p>
+        <p><strong>City:</strong> None</p>
+        <p><strong>Proxy Status:</strong> None</p>
+    </div>
 </div>
 
 <script>
@@ -104,7 +111,6 @@
 
         var loadingDiv = document.getElementById('loading');
         var resultDiv = document.getElementById('result');
-        resultDiv.innerHTML = ''; // Clear previous results
         loadingDiv.style.display = 'block'; // Show loading
 
         try {
@@ -124,7 +130,7 @@
             `;
         } catch (error) {
             console.error('Error fetching data:', error);
-            resultDiv.innerHTML = 'Failed to fetch data. Please try again.';
+            // Keep previous result if available
         } finally {
             loadingDiv.style.display = 'none'; // Hide loading
         }
