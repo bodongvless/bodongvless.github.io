@@ -35,15 +35,10 @@
             border-radius: 5px;
             margin-bottom: 10px;
         }
-        .error-message {
-            display: none;
-            color: red;
-            font-size: 14px;
-            margin-top: 5px;
-            text-align: left;
-        }
-        .error-message.active {
-            display: block;
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none; /* Remove default focus outline */
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add custom focus effect */
         }
         button {
             padding: 10px 20px;
@@ -72,7 +67,7 @@
         .loading {
             display: none;
             position: absolute;
-            top: 50%;
+            top: 55%;
             left: 50%;
             transform: translateX(-50%);
             font-size: 18px;
@@ -98,15 +93,16 @@
 
 <div class="container">
     <h1>Enter IP Address</h1>
-    <input type="text" id="ipAddress" placeholder="Enter IP Address" required oninvalid="this.setCustomValidity('Please enter an IP address.')">
-    <button onclick="showInfo()">Submit</button>
+    <form onsubmit="event.preventDefault(); showInfo();">
+        <input type="text" id="ipAddress" placeholder="Enter IP Address" required oninput="clearValidity()">
+        <button type="submit">Submit</button>
+    </form>
     <div class="loading" id="loading">
         <div class="spinner"></div>
         <p>Loading...</p>
     </div>
     <div class="result" id="result">
         <p><strong>IP:</strong> None</p>
-        <p><strong>Origin IP:</strong> None</p>
         <p><strong>ISP:</strong> None</p>
         <p><strong>Country:</strong> None</p>
         <p><strong>City:</strong> None</p>
@@ -119,11 +115,7 @@
         var ip = document.getElementById('ipAddress').value.trim();
         var apiUrl = `https://cors-anywhere.herokuapp.com/https://bexnxx.filegear-sg.me/api?ip=${ip}`;
 
-        var errorMessage = document.getElementById('errorMessage');
-        errorMessage.classList.remove('active'); // Hide error message initially
-
         if (!ip) {
-            errorMessage.classList.add('active'); // Show error message if input is empty
             return;
         }
 
@@ -140,7 +132,6 @@
 
             resultDiv.innerHTML = `
                 <p><strong>IP:</strong> ${data.ip}</p>
-                <p><strong>Origin IP:</strong> ${data.OriginIp}</p>
                 <p><strong>ISP:</strong> ${data.isp}</p>
                 <p><strong>Country:</strong> ${data.country}</p>
                 <p><strong>City:</strong> ${data.city}</p>
@@ -152,6 +143,10 @@
         } finally {
             loadingDiv.style.display = 'none'; // Hide loading
         }
+    }
+
+    function clearValidity() {
+        document.getElementById('ipAddress').setCustomValidity('');
     }
 </script>
 
