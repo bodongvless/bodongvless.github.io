@@ -96,7 +96,7 @@
 <div class="container">
     <h1>IP CF Checker</h1>
     <form onsubmit="event.preventDefault(); showInfo();">
-        <input type="text" id="ipAddress" placeholder="Enter IP Address" required oninput="clearValidity()">
+        <input type="text" id="ipAddress" placeholder="Enter IP Address" required oninput="clearValidity()" oninvalid="this.setCustomValidity('IP address is required')">
         <button type="submit">Submit</button>
     </form>
     <div class="loading" id="loading">
