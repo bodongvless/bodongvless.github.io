@@ -63,7 +63,7 @@
 <body>
 
 <div class="container">
-    <h1>Enter IP Address</h1>
+    <h1>Enter IP Addres</h1>
     <input type="text" id="ipAddress" placeholder="Enter IP Address">
     <button onclick="showInfo()">Submit</button>
     <div class="result" id="result"></div>
@@ -72,12 +72,12 @@
 <script>
     async function showInfo() {
         var ip = document.getElementById('ipAddress').value;
-        var apiUrl = `https://bexnxx.filegear-sg.me/api?ip=${ip}`;
+        var apiUrl = `https://cors-anywhere.herokuapp.com/https://bexnxx.filegear-sg.me/api?ip=${ip}`;
 
         try {
             let response = await fetch(apiUrl);
             if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
+                throw new Error('Network response was not ok: ' + response.statusText);
             }
             let data = await response.json();
 
