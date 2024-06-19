@@ -6,13 +6,13 @@
     <title>IP Address Information</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
+            background-color: #f4f4f9;
         }
         .container {
             background-color: #ffffff;
@@ -20,9 +20,11 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
+            position: relative;
         }
         h1 {
             margin-bottom: 20px;
+            font-size: 24px;
             color: #333333;
         }
         input[type="text"] {
@@ -32,7 +34,11 @@
             border: 1px solid #dddddd;
             border-radius: 5px;
             margin-bottom: 10px;
-            box-sizing: border-box;
+        }
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none; /* Remove default focus outline */
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add custom focus effect */
         }
         button {
             padding: 10px 20px;
@@ -60,7 +66,10 @@
         }
         .loading {
             display: none;
-            margin-top: 20px;
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 18px;
             color: #007bff;
         }
@@ -83,67 +92,61 @@
 <body>
 
 <div class="container">
-    <h1>Masukkan Alamat IP</h1>
-    <form id="ipForm">
-        <input type="text" id="ipAddress" placeholder="Masukkan Alamat IP" required>
-        <button type="submit">Kirim</button>
+    <h1>IP CF Checker</h1>
+    <form onsubmit="event.preventDefault(); showInfo();">
+        <input type="text" id="ipAddress" placeholder="Masukan IP Address" required oninput="clearValidity()">
+        <button type="submit">Check IP</button>
     </form>
     <div class="loading" id="loading">
         <div class="spinner"></div>
-        <p>Mengambil data...</p>
+        <p>Loading...</p>
     </div>
     <div class="result" id="result">
         <p><strong>IP:</strong> None</p>
-        <p><strong>IP Asal:</strong> None</p>
         <p><strong>ISP:</strong> None</p>
-        <p><strong>Negara:</strong> None</p>
-        <p><strong>Kota:</strong> None</p>
-        <p><strong>Status Proxy:</strong> None</p>
+        <p><strong>Country:</strong> None</p>
+        <p><strong>City:</strong> None</p>
+        <p><strong>Proxy Status:</strong> None</p>
     </div>
 </div>
 
 <script>
-    document.getElementById('ipForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+    async function showInfo() {
         var ip = document.getElementById('ipAddress').value.trim();
+        var apiUrl = `https://bexnxx.filegear-sg.me/api?ip=${ip}`;
+
         if (!ip) {
-            alert('Mohon masukkan alamat IP.');
             return;
         }
-        fetchIPInfo(ip);
-    });
 
-    async function fetchIPInfo(ip) {
-        var apiUrl = `https://cors-anywhere.herokuapp.com/https://bexnxx.filegear-sg.me/api?ip=${ip}`;
         var loadingDiv = document.getElementById('loading');
         var resultDiv = document.getElementById('result');
-        loadingDiv.style.display = 'block'; // Tampilkan loading
+        loadingDiv.style.display = 'block'; // Show loading
 
         try {
-            let response = await fetch(apiUrl, {
-                headers: {
-                    'Origin': 'https://bodongvless.github.io/ipchecker' // Ganti dengan URL website Anda
-                }
-            });
+            let response = await fetch(apiUrl);
             if (!response.ok) {
-                throw new Error('Respons jaringan tidak baik: ' + response.statusText);
+                throw new Error('Network response was not ok: ' + response.statusText);
             }
             let data = await response.json();
 
             resultDiv.innerHTML = `
                 <p><strong>IP:</strong> ${data.ip}</p>
-                <p><strong>IP Asal:</strong> ${data.OriginIp}</p>
                 <p><strong>ISP:</strong> ${data.isp}</p>
-                <p><strong>Negara:</strong> ${data.country}</p>
-                <p><strong>Kota:</strong> ${data.city}</p>
-                <p><strong>Status Proxy:</strong> ${data.proxyStatus}</p>
+                <p><strong>Country:</strong> ${data.country}</p>
+                <p><strong>City:</strong> ${data.city}</p>
+                <p><strong>Proxy Status:</strong> ${data.proxyStatus}</p>
             `;
         } catch (error) {
             console.error('Error fetching data:', error);
-            resultDiv.innerHTML = '<p>Gagal mengambil data.</p>';
+            // Keep previous result if available
         } finally {
-            loadingDiv.style.display = 'none'; // Sembunyikan loading
+            loadingDiv.style.display = 'none'; // Hide loading
         }
+    }
+
+    function clearValidity() {
+        document.getElementById('ipAddress').setCustomValidity('');
     }
 </script>
 
