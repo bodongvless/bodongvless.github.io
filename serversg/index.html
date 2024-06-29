@@ -21,81 +21,8 @@
 	<meta property='og:image:width' content='1500' />
 	<meta property='og:image:height' content='1500' />
 
-	<style>
-	
-	body {
-	  font-family: Arial, sans-serif;
-	  background-color: #f0f0f0;
-	  color: #333;
-	  padding: 10px;
-	  max-width: 100%; /* Menetapkan lebar maksimum untuk body */
-        margin-left: auto;
-        margin-right: auto;
-	}
+	<link rel='stylesheet' href='https://bodongvless.github.io/style.css'>
 
-	a {
-	  color: #1a0dab;
-	  text-decoration: none;
-	}
-	img {
-	  max-width: 100%;
-	  height: auto;
-	}
-
-	pre {
-	  white-space: pre-wrap;
-	  word-wrap: break-word;
-	  background-color: #fff;
-	  border: 1px solid #ddd;
-	  padding: 15px;
-	  margin: 10px 0;
-	}
-	/* Dark mode */
-	@media (prefers-color-scheme: dark) {
-	  body {
-		background-color: #333;
-		color: #f0f0f0;
-	  }
-
-	  a {
-		color: #9db4ff;
-	  }
-
-	  pre {
-		background-color: #282a36;
-		border-color: #6272a4;
-	  }
-	  
-	}
-	
-button {
-  text-align: center;
-  font-family: monospace;
-  background-color: #f3f7fe;
-  color: #3b82f6;
-  border: none;
-  border-radius: 8px;
-  width: fit-content;
-  height: 30px;
-  transition: .3s;
-}
-
-button:hover {
-  background-color: #3b82f6;
-  box-shadow: 0 0 0 5px #3b83f65f;
-  color: #fff;
-}
-
-
-
-hidden {
-    display: none;
-    height: 1px;
-    overflow: hidden;
-}	
-	</style>
-
-	<!-- Add FontAwesome library -->
 	<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
   </head>
   
@@ -103,8 +30,7 @@ hidden {
   <pre style='background-color: transparent; border: none;'>
 </pre>
   <pre>
-<div id="header"><center><h2>VLESS CLOUDFLARE FREE</h2></center>
-<em><span style="color: red;">NOTE:</span>Silahkan kalian pilih settingan untuk inject sesuai paket kalian.</em> </div> <div hidden class="divContent" id="cfgvid">
+<div id="header"><center><h2>VLESS CLOUDFLARE FREE</h2><div id="result"></div> <div id="ipData" data-ip="139.162.24.91"></div></center> <em><span style="color: red;">NOTE:</span>Silahkan kalian pilih settingan untuk inject sesuai paket kalian.</em> </div> <div hidden class="divContent" id="cfgvid">
 <center><h2>VLESS CLOUDFLARE FREE</h2></center>
 
 <em><span style="color: red;">NOTE:</span> Settingan ini untuk inject paket VIDIO, kalian tinggal salin dan tempel pada apk yang kalian gunakan untuk inject.</em>
@@ -520,66 +446,8 @@ Chat Telegram saya : <a href="https://t.me/trust_bodong">Klik Disini</a></center
   </pre>
   </body>
  
-<script>
-function showText(divId) {
-    var resultDiv = document.getElementById('result');
-    var selectedDiv = document.getElementById(divId);
-
-    // Menambahkan tombol kembali ke halaman awal setelah konten ditampilkan
-    var resetButton = document.createElement('button');
-    resetButton.innerText = 'Kembali ke halaman awal';
-    resetButton.classList.add('button'); // Menambahkan kelas button
-    resetButton.onclick = function() {
-       // Mengarahkan pengguna ke Telegram
-    window.location.href = 'https://bodongvless.github.io';
-    };
-
-    // Menyembunyikan semua tombol
-    document.querySelectorAll('.button').forEach(button => {
-        button.style.display = 'none';
-    });
-
-    // Menambahkan konten dari div yang dipilih ke dalam resultDiv
-    resultDiv.innerHTML = ''; // Menghapus isi dari resultDiv
-    resultDiv.appendChild(selectedDiv.cloneNode(true)); // Menambahkan konten dari div yang dipilih
-
-    // Menambahkan tombol kembali ke halaman awal ke dalam resultDiv
-    resultDiv.appendChild(resetButton);
-    
-
-    // Menampilkan div konten yang dipilih
-    document.getElementById("header").style.display = "none";
-    selectedDiv.style.display = 'block';
-}
+<script src="https://bodongvless.github.io/script.min.js">
 </script>
-
-
-            
-  <script>
-	function copyToClipboard(text) {
-	  navigator.clipboard.writeText(text)
-		.then(() => {
-      alert('Kode berhasil disalin!');
-    })
-    .catch(err => {
-      console.error('Gagal menyalin kode:', err);
-      alert('Gagal menyalin kode.');
-    });
-}
-  </script>
-  
-  <script>
-    function copyclash(elementId) {
-        const code = document.getElementById(elementId).innerText;
-        navigator.clipboard.writeText(code)
-            .then(() => {
-                alert('Kode berhasil disalin!');
-            })
-            .catch(err => {
-                console.error('Gagal menyalin kode:', err);
-                alert('Gagal menyalin kode.');
-            });
-    }
+<script src="https://bodongvless.github.io/script.test.js">
 </script>
-
-  </html>
+</html>
