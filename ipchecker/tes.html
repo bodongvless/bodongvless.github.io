@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Info</title>
+</head>
+<body>
+    <input type="text" id="ipAddress" oninput="clearValidity()" placeholder="Enter IP Address">
+    <div id="loading" style="display:none;">Loading...</div>
+    <div id="result"></div>
+    <button onclick="showInfo()">Show Info</button>
+
+    <script>
+        async function showInfo() {
+            var ip = document.getElementById('ipAddress').value.trim();
+            var corsAnywhereUrl = 'https://api.allorigins.win/raw?url=';
+            var apiUrl = `${corsAnywhereUrl}https://ip.cfvless.workers.dev/?ip=${ip}`;
+
+            if (!ip) {
+                return;
+            }
+
+            var loadingDiv = document.getElementById('loading');
+            var resultDiv = document.getElementById('result');
+            loadingDiv.style.display = 'block'; // Show loading
+
+            try {
+                let response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                let data = await response.json();
+
+                resultDiv.innerHTML = `
+                    <p><strong>IP:</strong> ${data.ip}</p>
+                    <p><strong>ISP:</strong> ${data.isp}</p>
+                    <p><strong>Country:</strong> ${data.country}</p>
+                    <p><strong>City:</strong> ${data.city}</p>
+                    <p><strong>Proxy Status:</strong> ${data.proxyStatus}</p>
+                `;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                // Handle error message here
+                resultDiv.innerHTML = `<p>Error fetching data: ${error.message}</p>`;
+            } finally {
+                loadingDiv.style.display = 'none'; // Hide loading
+            }
+        }
+
+        function clearValidity() {
+            document.getElementById('ipAddress').setCustomValidity('');
+        }
+    </script>
+</body>
+</html>
